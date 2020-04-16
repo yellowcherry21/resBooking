@@ -1,15 +1,15 @@
-click             7.1.1  
-Flask             1.1.2  
-gunicorn          20.0.4 
-isort             4.3.21  
-Jinja2            2.11.1 
-lazy-object-proxy 1.4.3  
-MarkupSafe        1.1.1  
-pip               20.0.2 
-pyenv-win         1.2.4  
-pylint            2.4.4  
-setuptools        41.2.0 
-six               1.14.0 
-virtualenv        20.0.17
-Werkzeug          1.0.1  
-wrapt             1.11.2 
+click==7.1.1  
+Flask==1.1.2  
+gunicorn==20.0.4 
+isort==4.3.21  
+Jinja2==2.11.1 
+lazy-object-proxy==1.4.3  
+MarkupSafe==1.1.1  
+pip==20.0.2 
+pyenv-win==1.2.4  
+pylint==2.4.4  
+setuptools==41.2.0 
+six==1.14.0 
+virtualenv==20.0.17
+Werkzeug==1.0.1  
+wrapt==1.11.2 
