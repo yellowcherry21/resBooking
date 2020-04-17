@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 
  <head>
@@ -15,14 +15,14 @@
  <body>
   <H1>Resource booking</H1>
 <div>
-  <form oninput="result.value=(StartDate.value)">
-    <p>StartDateTime: </p>
-    <input type="datetime" name="StartDate" autofocus></p>
-    <p>EndDateTime: </p>
-    <input type="datetime" name="EndDate" autofocus></p>
-    <p><input type="button" value="Send" onclick="booking()"></p>
-    <p>Results: </p>
-  </form>
+    <form action="" method="post">
+        <p>StartDateTime:</p>
+        <input type="datetime" name="StartDateTime" id="StartDateTime" value="" autofocus>
+        <p>StartDateTime:</p>
+        <input type="datetime" name="EndDateTime" id="EndDateTime" value="">
+        <p><input type="submit" value="Send" onclick="booking()"></p>
+        <p>Results: </p>
+    </form>
 </div>
  </body>
 
