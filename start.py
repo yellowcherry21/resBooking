@@ -47,9 +47,9 @@ def FindFreeInterval(StartDateTime, EndDateTime):
 from flask import Flask, render_template
 app = Flask(__name__)
 
-#@app.route("/")
-#def hello_world():
-    #return render_template('Booking.html')
+@app.route("/")
+def start():
+    return render_template('Booking.html')
 
 @app.route('/login', methods=['GET', 'POST'])
 def main():
