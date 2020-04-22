@@ -55,7 +55,7 @@ results = []
 
 @app.route('/', methods=['GET'])
 def start_page():
-    return render_template('booking.html', results=results)
+    return render_template('booking.html', results=[])
 
 
 @app.route('/main', methods=['GET'])
