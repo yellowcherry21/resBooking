@@ -1,0 +1,25 @@
+﻿<!DOCTYPE html>
+<html>
+
+ <head>
+  <meta charset="UTF-8">
+  <title>ВЫЧ ПРАКТИКА</title>
+   <style>body { background: url({{ url_for('static', filename='Background.jpg') }}); }</style>
+
+ </head>
+
+ <body>
+  <H1>Resource booking</H1>
+    <form action="/add_result" method="post">
+        <p>StartDateTime:</p>
+        <input type="date" name="StartDateTime" id="StartDateTime" value="" min="2000-01-01" autofocus>
+        <p>StartDateTime:</p>
+        <input type="date" name="EndDateTime" id="EndDateTime" value="" min="2000-01-01">
+        <p><button type="submit">Send</button></p>
+    </form>
+  {% if results!=[] %}
+  <div>Results: {{results}}</div>
+  {% endif %}
+ <a href="{{ url_for('table') }}">table</a>
+ </body>
+</html>
