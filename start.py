@@ -1,4 +1,4 @@
-import datetime
+from datetime import datetime, date, time
 
 from flask import Flask
 from flask import render_template, redirect, url_for, request
@@ -12,6 +12,7 @@ def intersection(a1, b1, a2, b2):
 
 
 BigStruct = []
+ListID = []
 f = open('resource_bookings_input.txt', 'r')
 f.readline()
 List = f.readlines()
@@ -23,14 +24,16 @@ while j<len(List):
    ResourceId=Str[0:Str.find(",")]
 
    i=Str.find(",")
-   StartDateTime = datetime.datetime(int(Str[i+1:i+5]),int(Str[i+6:i+8]),int(Str[i+9:i+11]),int(Str[i+12:i+14]),int(Str[i+15:i+17]),int(Str[i+18:i+20]))
+   StartDateTime = datetime(int(Str[i+1:i+5]),int(Str[i+6:i+8]),int(Str[i+9:i+11]),int(Str[i+12:i+14]),int(Str[i+15:i+17]),int(Str[i+18:i+20]))
 
    i=Str.rfind(",")
-   EndDateTime   = datetime.datetime(int(Str[i+1:i+5]),int(Str[i+6:i+8]),int(Str[i+9:i+11]),int(Str[i+12:i+14]),int(Str[i+15:i+17]),int(Str[i+18:i+20]))
+   EndDateTime   = datetime(int(Str[i+1:i+5]),int(Str[i+6:i+8]),int(Str[i+9:i+11]),int(Str[i+12:i+14]),int(Str[i+15:i+17]),int(Str[i+18:i+20]))
 
    Struct = [ResourceId, StartDateTime, EndDateTime]
    BigStruct.append(Struct)
+   ListID.append(ResourceId)
    j=j+1
+
 
 def IsResourceAvailable(ResourceId, StartDateTime, EndDateTime):
     i = 0
@@ -39,6 +42,13 @@ def IsResourceAvailable(ResourceId, StartDateTime, EndDateTime):
             return False
         i = i+1
     return True
+
+
+def IsResourceAvailableToday(ResourceId, Date):
+    start = datetime.combine(Date, time(0, 0))
+    end = datetime.combine(Date, time(23, 59, 59))
+    return IsResourceAvailable(ResourceId, start, end)
+
 
 def FindFreeInterval(StartDateTime, EndDateTime):
     FreeResources=[]
@@ -49,8 +59,15 @@ def FindFreeInterval(StartDateTime, EndDateTime):
     return list(set(FreeResources))
 
 
+d = list(range(737425, 737791))
+DateList = []
+for i in d:
+    DateList.append(str(date.fromordinal(i)))
+
+
 app = Flask(__name__)
 results = []
+ListID = list(set(ListID))
 
 
 @app.route('/', methods=['GET'])
@@ -65,13 +82,13 @@ def main():
 
 @app.route('/table')
 def table():
-    return render_template('table.html')
+    return render_template('table.html', DateList=DateList, ListID=ListID)
 
 
 @app.route('/add_result', methods=['POST'])
 def add_result():
-    a = datetime.datetime(int(request.form['StartDateTime'][0:4]), int(request.form['StartDateTime'][5:7]), int(request.form['StartDateTime'][8:10]), 0, 0, 0)
-    b = datetime.datetime(int(request.form['EndDateTime'][0:4]), int(request.form['StartDateTime'][5:7]), int(request.form['StartDateTime'][8:10]), 23, 59, 59)
+    a = datetime(int(request.form['StartDateTime'][0:4]), int(request.form['StartDateTime'][5:7]), int(request.form['StartDateTime'][8:10]), 0, 0, 0)
+    b = datetime(int(request.form['EndDateTime'][0:4]), int(request.form['StartDateTime'][5:7]), int(request.form['StartDateTime'][8:10]), 23, 59, 59)
     global results
     results = ', '.join(FindFreeInterval(a, b))
     return redirect(url_for('main'))
