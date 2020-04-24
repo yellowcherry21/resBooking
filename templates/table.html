@@ -4,40 +4,33 @@
   <meta charset="utf-8">
   <title>Reservation</title>
   <style type="text/css">
-   th {  
-    font-family: Verdana, Arial, Helvetica, sans-serif; 
+   th {
+    font-family: Verdana, Helvetica;
     color: #333366;
    }
    body { background: url({{ url_for('static', filename='Background.jpg') }}); }
   </style>
  </head>
  <body>
-  <table border="1" cols="366">
+  <table border="1">
    <tr>
-    <th>Resource ID</th>
-    <th>01.01.2020</th>
-    <th>02.01.2020</th>
-    <th>03.01.2020</th>
+    <th>ID/Date</th>
+    {% for i in DateList %}
+      <td>{{i}}</td>
+    {% endfor %}
    </tr>
-   <tr>
-    <td>1</td>
-    <td>||||||||||||||||||||||||</td>
-    <td>||||||||||||||||||||||||</td>
-    <td>||||||||||||||||||||||||</td>
-   </tr>
-   <tr>
-    <td>2</td>
-    <td>||||||||||||||||||||||||</td>
-    <td>||||||||||||||||||||||||</td>
-    <td>||||||||||||||||||||||||</td>
-   </tr>
-   <tr>
-    <td>3</td>
-    <td>||||||||||||||||||||||||</td>
-    <td>||||||||||||||||||||||||</td>
-    <td>||||||||||||||||||||||||</td>
-   </tr>
-   
+    {% for i in ListID %}
+      <tr>
+       <td>{{i}}</td>
+       {% for j in DateList %}
+         {% if True %}
+           <td>Free</td>
+         {% else %}
+           <td>Busy</td>
+         {% endif %}
+       {% endfor %}
+      </tr>
+    {% endfor %}
   </table>
  </body>
 </html>
