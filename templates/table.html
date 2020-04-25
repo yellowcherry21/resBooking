@@ -4,10 +4,7 @@
   <meta charset="utf-8">
   <title>Reservation</title>
   <style type="text/css">
-   th {
-    font-family: Verdana, Helvetica;
-    color: #333366;
-   }
+   th { font-family: Verdana, Helvetica; }
    body { background: url({{ url_for('static', filename='Background.jpg') }}); }
   </style>
  </head>
@@ -23,10 +20,10 @@
       <tr>
        <td>{{i}}</td>
        {% for j in DateList %}
-         {% if True %}
+         {% if AvailableToday(i, j) %}
            <td>Free</td>
          {% else %}
-           <td>Busy</td>
+           <td style="background: #CD5C5C">Busy</td>
          {% endif %}
        {% endfor %}
       </tr>
