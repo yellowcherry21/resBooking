@@ -44,10 +44,11 @@ def IsResourceAvailable(ResourceId, StartDateTime, EndDateTime):
     return True
 
 
-def IsResourceAvailableToday(ResourceId, Date):
-    start = datetime.combine(Date, time(0, 0))
-    end = datetime.combine(Date, time(23, 59, 59))
-    return IsResourceAvailable(ResourceId, start, end)
+def AvailableToday(resourceid, str_date):
+    x = date(int(str_date[0:4]), int(str_date[5:7]), int(str_date[8:10]))
+    start = datetime.combine(x, time(0, 0))
+    end = datetime.combine(x, time(23, 59, 59))
+    return IsResourceAvailable(resourceid, start, end)
 
 
 def FindFreeInterval(StartDateTime, EndDateTime):
@@ -82,7 +83,7 @@ def main():
 
 @app.route('/table')
 def table():
-    return render_template('table.html', DateList=DateList, ListID=ListID)
+    return render_template('table.html', DateList=DateList, ListID=ListID, AvailableToday=AvailableToday)
 
 
 @app.route('/add_result', methods=['POST'])
