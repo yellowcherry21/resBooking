@@ -1,25 +1,35 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 
  <head>
   <meta charset="UTF-8">
   <title>ВЫЧ ПРАКТИКА</title>
-   <style>body { background: url({{ url_for('static', filename='Background.jpg') }}); }</style>
+   <style>
+      body { background: url({{ url_for('static', filename='Background.jpg') }}); }
+      H1 { font-family: Helvetica;
+   </style>
 
  </head>
 
  <body>
+ <div style="font-size: 103%; position: absolute; top: 0px; left: 475px">
   <H1>Resource booking</H1>
+ </div>
+ <div style="position: absolute; top: 80px; left: 475px">
     <form action="/add_result" method="post">
-        <p>StartDate:</p>
         <input type="date" name="StartDateTime" id="StartDateTime" value="" min="2000-01-01" autofocus>
-        <p>EndDate:</p>
         <input type="date" name="EndDateTime" id="EndDateTime" value="" min="2000-01-01">
-        <p><button type="submit">Send</button></p>
+        <button type="submit"> Send </button>
     </form>
+ </div>
   {% if results!=[] %}
-  <div>Results: {{results}}</div>
+  <div style="position: absolute; top: 120px; left: 10px">
+      <b>Result for a given interval: </b>{{results}}
+  </div>
   {% endif %}
- <a href="{{ url_for('table') }}">table</a>
+ <div style="position: absolute; top: 83px; left: 370px">
+     <a href="{{ url_for('table') }}">Table for 2020</a>
+ </div>
+
  </body>
 </html>
