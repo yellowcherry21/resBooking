@@ -1,7 +1,8 @@
 from datetime import datetime, date, time
-from typing import List
+
 from flask import Flask
 from flask import render_template, redirect, url_for, request
+from typing import List
 
 
 def intersection(a1, b1, a2, b2):
@@ -15,11 +16,11 @@ BigStruct = []
 lisstID = []
 f = open('resource_bookings_input.txt', 'r')
 f.readline()
-lisst = f.readlines()
+templist = f.readlines()
 
 j=0
-while j<len(lisst):
-   Str = lisst[j]
+while j<len(templist):
+   Str = templist[j]
    i=0
    ResourceId=Str[0:Str.find(",")]
 
@@ -51,19 +52,19 @@ def AvailableToday(resourceid, str_date):
     return IsResourceAvailable(resourceid, start, end)
 
 
-def FindFreeInterval(StartDateTime, EndDateTime) :
+def FindFreeInterval(StartDateTime, EndDateTime):
     FreeResources=[]
     for i in BigStruct:
         if IsResourceAvailable(i[0], StartDateTime, EndDateTime)==False:
             continue
         FreeResources.append(i[0])
-    return lisst(set(FreeResources))
+    return list(set(FreeResources))
 
 
 d = list(range(737425, 737791))
-Datelisst = []
+DateList = []
 for i in d:
-    Datelisst.append(str(date.fromordinal(i)))
+    DateList.append(str(date.fromordinal(i)))
 
 
 app = Flask(__name__)
@@ -83,7 +84,7 @@ def main():
 
 @app.route('/table')
 def table():
-    return render_template('table.html', Datelisst=Datelisst, lisstID=lisstID, AvailableToday=AvailableToday)
+    return render_template('table.html', DateList=DateList, ListID=lisstID, AvailableToday=AvailableToday)
 
 
 @app.route('/add_result', methods=['POST'])
