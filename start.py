@@ -12,44 +12,48 @@ def intersection(a1, b1, a2, b2):
         return False
 
 
+def SomeText(a):
+    return a+"A"
+
+
 BigStruct = []
 lisstID = []
 f = open('resource_bookings_input.txt', 'r')
 f.readline()
-templist = f.readlines()
+temp_list = f.readlines()
 
-j=0
-while j<len(templist):
-   Str = templist[j]
-   i=0
-   ResourceId=Str[0:Str.find(",")]
+for Str in temp_list:
+   if Str[Str.rfind(",")+1:Str.rfind(",")+5] == "2020":
+       ResourceId = Str[0:Str.find(",")]
 
-   i=Str.find(",")
-   StartDateTime = datetime(int(Str[i+1:i+5]),int(Str[i+6:i+8]),int(Str[i+9:i+11]),int(Str[i+12:i+14]),int(Str[i+15:i+17]),int(Str[i+18:i+20]))
+       i = Str.find(",")
+       StartDateTime = datetime(int(Str[i+1:i+5]), int(Str[i+6:i+8]), int(Str[i+9:i+11]), int(Str[i+12:i+14]), int(Str[i+15:i+17]), int(Str[i+18:i+20]))
 
-   i=Str.rfind(",")
-   EndDateTime   = datetime(int(Str[i+1:i+5]),int(Str[i+6:i+8]),int(Str[i+9:i+11]),int(Str[i+12:i+14]),int(Str[i+15:i+17]),int(Str[i+18:i+20]))
+       i=Str.rfind(",")
+       EndDateTime   = datetime(int(Str[i+1:i+5]), int(Str[i+6:i+8]), int(Str[i+9:i+11]), int(Str[i+12:i+14]), int(Str[i+15:i+17]), int(Str[i+18:i+20]))
 
-   Struct = [ResourceId, StartDateTime, EndDateTime]
-   BigStruct.append(Struct)
-   lisstID.append(ResourceId)
-   j=j+1
+       Struct = [ResourceId, StartDateTime, EndDateTime]
+       BigStruct.append(Struct)
+       lisstID.append(ResourceId)
 
 
 def IsResourceAvailable(ResourceId, StartDateTime, EndDateTime):
-    i = 0
-    while i<len(BigStruct):
-        if ResourceId == BigStruct[i][0] and intersection(StartDateTime, EndDateTime, BigStruct[i][1], BigStruct[i][2]):
+    for el in BigStruct:
+        if ResourceId == el[0] and intersection(StartDateTime, EndDateTime, el[1], el[2]):
             return False
-        i = i+1
     return True
 
 
-def AvailableToday(resourceid, str_date):
-    x = date(int(str_date[0:4]), int(str_date[5:7]), int(str_date[8:10]))
-    start = datetime.combine(x, time(0, 0))
-    end = datetime.combine(x, time(23, 59, 59))
-    return IsResourceAvailable(resourceid, start, end)
+def AvailableToday(resourceid, date):
+    hourlist = [] # type: List[bool]
+    for hour in range(24):
+        start = datetime.combine(date, time(hour, 0))
+        end = datetime.combine(date, time(hour, 59, 59))
+        if IsResourceAvailable(resourceid, start, end):
+            hourlist.append(True)
+        else:
+            hourlist.append(False)
+    return hourlist
 
 
 def FindFreeInterval(StartDateTime, EndDateTime):
@@ -61,10 +65,9 @@ def FindFreeInterval(StartDateTime, EndDateTime):
     return list(set(FreeResources))
 
 
-d = list(range(737425, 737791))
 DateList = []
-for i in d:
-    DateList.append(str(date.fromordinal(i)))
+for i in list(range(737425, 737791)):
+    DateList.append(date.fromordinal(i))
 
 
 app = Flask(__name__)
@@ -98,4 +101,3 @@ def add_result():
 
 if __name__ == '__main__':
     app.run()
-
