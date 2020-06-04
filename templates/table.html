@@ -9,7 +9,7 @@
   </style>
  </head>
  <body>
-  <table border="2">
+  <table cellspacing="10" cellpadding="5" width="600">
    <tr>
     <th>ID/Date</th>
     {% for i in DateList %}
@@ -18,7 +18,7 @@
    </tr>
     {% for i in ListID %}
       <tr>
-       <td width="5000">{{i}}</td>
+       <td width="200">{{i}}</td>
        {% for j in DateList %}
            <td>
                {% for k in AvailableToday(i,j) %}
