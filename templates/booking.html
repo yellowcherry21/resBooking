@@ -18,7 +18,7 @@
  <div style="position: absolute; top: 80px; left: 475px">
     <form action="/add_result" method="post">
         <input type="date" name="StartDateTime" id="StartDateTime" value="{{ today }}" min="2020-01-01" autofocus>
-        <input type="date" name="EndDateTime" id="EndDateTime" value="2020-12-31" min="2020-01-01">
+        <input type="date" name="EndDateTime" id="EndDateTime" value="{{ last_day }}" min="2020-01-01">
         <button type="submit"> Send </button>
     </form>
  </div>
