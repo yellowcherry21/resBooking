@@ -65,6 +65,7 @@ def FindFreeInterval(StartDateTime, EndDateTime):
     return list(set(FreeResources))
 
 
+today = date.today()
 DateList = []
 for i in list(range(737425, 737791)):
     DateList.append(date.fromordinal(i))
@@ -77,12 +78,12 @@ lisstID = list(set(lisstID))
 
 @app.route('/', methods=['GET'])
 def start_page():
-    return render_template('booking.html', results=[])
+    return render_template('booking.html', results=[], today=today)
 
 
 @app.route('/main', methods=['GET'])
 def main():
-    return render_template('booking.html', results=results)
+    return render_template('booking.html', results=results, today=today)
 
 
 @app.route('/table')
