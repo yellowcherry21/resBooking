@@ -5,11 +5,11 @@
   <title>Reservation</title>
   <style type="text/css">
    th { font-family: Verdana, Helvetica; }
-   body { background: url({{ url_for('static', filename='back.jpg') }}); }
+   body { background: url({{ url_for('static', filename='9=back.jpg') }}); }
   </style>
  </head>
  <body>
-  <table border="1">
+  <table border="2">
    <tr>
     <th>ID/Date</th>
     {% for i in DateList %}
@@ -18,13 +18,17 @@
    </tr>
     {% for i in ListID %}
       <tr>
-       <td>{{i}}</td>
+       <td width="200">{{i}}</td>
        {% for j in DateList %}
-         {% if AvailableToday(i, j) %}
-           <td>Free</td>
-         {% else %}
-           <td style="background: #CD5C5C">Busy</td>
-         {% endif %}
+           <td>
+               {% for k in AvailableToday(i,j) %}
+               {% if k %}
+               <span style="background: #32CD32">.</span>
+               {% else %}
+               <span style="background: #CD5C5C">.</span>
+               {% endif %}
+               {% endfor %}
+           </td>
        {% endfor %}
       </tr>
     {% endfor %}
